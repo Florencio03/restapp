@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `session`;
 
 CREATE TABLE `session` (
   `id`  int NOT NULL,
-  -- `created_at` DATETIME NOT NULL, 
+  `created_at` DATETIME NOT NULL, 
   `mood_summary` varchar(100) DEFAULT NULL, 
   `dominant_emotion` varchar(30) DEFAULT NULL,
   `marking_status` varchar(30) DEFAULT NULL, 
@@ -21,4 +21,4 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` VALUES 
-	(1, 'Mejor que ayer, aunque con dudas.','anxiety', 'spotted');
+	(1, now(), 'Mejor que ayer, aunque con dudas.','anxiety', 'spotted');

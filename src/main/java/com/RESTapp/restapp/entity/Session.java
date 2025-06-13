@@ -1,6 +1,9 @@
 package com.RESTapp.restapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 //Java POJO class
 @Entity
@@ -22,9 +25,9 @@ public class Session {
 //    @Column(name = "id", updatable = false, nullable = false)
 //    private UUID id;
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Column(name = "created_at")
-//    private LocalDateTime createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Column(name = "mood_summary")
     private String moodSummary;
@@ -37,10 +40,10 @@ public class Session {
 
     public Session() {}
 
-    public Session(//LocalDateTime createdAt,
+    public Session(LocalDateTime createdAt,
                    String moodSummary,
                    String dominantEmotion, String markingStatus) {
-        //this.createdAt = createdAt;
+        this.createdAt = createdAt;
         this.moodSummary = moodSummary;
         this.dominantEmotion = dominantEmotion;
         this.markingStatus = markingStatus;
@@ -54,13 +57,13 @@ public class Session {
         this.id = id;
     }
 
-//    public LocalDateTime getCreatedAt() {
-//        return createdAt;
-//    }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-//    public void setCreatedAt(LocalDateTime createdAt) {
-//        this.createdAt = createdAt;
-//    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getMoodSummary() {
         return moodSummary;
@@ -90,7 +93,7 @@ public class Session {
     public String toString() {
         return "Session{" +
                 "id=" + id +
-                //", createdAt=" + createdAt +
+                ", createdAt=" + createdAt +
                 ", moodSummary='" + moodSummary + '\'' +
                 ", dominantEmotion='" + dominantEmotion + '\'' +
                 ", markingStatus='" + markingStatus + '\'' +
