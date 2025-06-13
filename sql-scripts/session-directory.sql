@@ -8,7 +8,7 @@ USE `session_directory`;
 DROP TABLE IF EXISTS `session`;
 
 CREATE TABLE `session` (
-  `id`  int NOT NULL,
+  `id`  char(36) NOT NULL,
   `created_at` DATETIME NOT NULL, 
   `mood_summary` varchar(100) DEFAULT NULL, 
   `dominant_emotion` varchar(30) DEFAULT NULL,
@@ -21,4 +21,4 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` VALUES 
-	(1, now(), 'Mejor que ayer, aunque con dudas.','anxiety', 'spotted');
+	('91f9d1f0-3c70-4ed3-88d7-4cc9fc108e29', now(), 'Mejor que ayer, aunque con dudas.','anxiety', 'spotted');
