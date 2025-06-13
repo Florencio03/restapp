@@ -2,32 +2,45 @@ package com.RESTapp.restapp.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
 //Java POJO class
 @Entity
 @Table(name="session")
 public class Session {
 
-    // define fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name="id")
+    @Column(name="id")
     private int id;
 
-    private LocalDateTime createdAt;
+// define fields
+//    @Id
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(
+//            name = "UUID",
+//            strategy = "org.hibernate.id.UUIDGenerator"
+//    )
+//    @Column(name = "id", updatable = false, nullable = false)
+//    private UUID id;
 
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Column(name = "created_at")
+//    private LocalDateTime createdAt;
+
+    @Column(name = "mood_summary")
     private String moodSummary;
 
+    @Column(name = "dominant_emotion")
     private String dominantEmotion;
 
+    @Column(name = "marking_status")
     private String markingStatus;
 
     public Session() {}
 
-    public Session(LocalDateTime createdAt, String moodSummary,
+    public Session(//LocalDateTime createdAt,
+                   String moodSummary,
                    String dominantEmotion, String markingStatus) {
-        this.createdAt = createdAt;
+        //this.createdAt = createdAt;
         this.moodSummary = moodSummary;
         this.dominantEmotion = dominantEmotion;
         this.markingStatus = markingStatus;
@@ -41,13 +54,13 @@ public class Session {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+//    public LocalDateTime getCreatedAt() {
+//        return createdAt;
+//    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+//    public void setCreatedAt(LocalDateTime createdAt) {
+//        this.createdAt = createdAt;
+//    }
 
     public String getMoodSummary() {
         return moodSummary;
@@ -77,7 +90,7 @@ public class Session {
     public String toString() {
         return "Session{" +
                 "id=" + id +
-                ", createdAt=" + createdAt +
+                //", createdAt=" + createdAt +
                 ", moodSummary='" + moodSummary + '\'' +
                 ", dominantEmotion='" + dominantEmotion + '\'' +
                 ", markingStatus='" + markingStatus + '\'' +
