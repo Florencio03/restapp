@@ -40,9 +40,10 @@ public class SessionRestController {
         return theSession;
     }
 
+    @PostMapping("/sessions")
     public Session addSession(@RequestBody Session theSession){
 
-        // also just in case they pass an id in JSON ... set id to 0
+        // also just in case they pass an id in JSON ... set id to null
         // this is to force a save of new item ... instead of update
 
         Session dbSession = sessionService.save(theSession);
