@@ -44,7 +44,7 @@ public class Session {
 
     public Session(LocalDateTime createdAt,
                    String moodSummary,
-                   String dominantEmotion, String markingStatus) {
+                   String dominanEmotion, String markingStatus) {
         this.createdAt = createdAt;
         this.moodSummary = moodSummary;
         this.dominantEmotion = dominantEmotion;
