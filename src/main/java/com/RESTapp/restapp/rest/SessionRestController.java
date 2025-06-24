@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/sessions")
 public class SessionRestController {
 
     private SessionService sessionService;
@@ -24,12 +24,13 @@ public class SessionRestController {
         objectMapper = theObjectMapper;
     }
 
-    @GetMapping("/sessions")
+    @GetMapping("/fetchAll")
     public List<Session> findAll(){
+        System.out.println("Printing session record");
         return sessionService.findAll();
     }
 
-    @GetMapping("/sessions/{sessionId}")
+    @GetMapping("/fetch/{sessionId}")
     public Session getSession(@PathVariable UUID sessionId){
         Session theSession = sessionService.findById(sessionId);
 
@@ -40,7 +41,7 @@ public class SessionRestController {
         return theSession;
     }
 
-    @PostMapping("/sessions")
+    @PostMapping("/create")
     public Session addSession(@RequestBody Session theSession){
 
         // also just in case they pass an id in JSON ... set id to null
@@ -52,7 +53,7 @@ public class SessionRestController {
         return dbSession;
     }
 
-    @PatchMapping("/sessions/{sessionId}")
+    @PatchMapping("/patch/{sessionId}")
     public Session patchSession(@PathVariable UUID sessionId, @RequestBody Map<String, Object> patchPayload){
 
         Session tempSession = sessionService.findById(sessionId);
@@ -84,7 +85,7 @@ public class SessionRestController {
         return objectMapper.convertValue(sessionNode, Session.class);
     }
 
-    @DeleteMapping("/sessions/{sessionId}")
+    @DeleteMapping("/delete/{sessionId}")
     public String deleteSession(@PathVariable UUID sessionId){
 
         Session tempSession = sessionService.findById(sessionId);
