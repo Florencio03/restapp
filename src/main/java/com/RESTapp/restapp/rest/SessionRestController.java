@@ -2,6 +2,7 @@ package com.RESTapp.restapp.rest;
 
 import com.RESTapp.restapp.entity.Session;
 import com.RESTapp.restapp.service.SessionService;
+import com.RESTapp.restapp.util.AppLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class SessionRestController {
 
     @GetMapping("/fetchAll")
     public List<Session> findAll(){
-        System.out.println("Printing session record");
+        //System.out.println("Printing session record");
+        AppLogger.info("GET /fetchAll called");
         return sessionService.findAll();
     }
 
@@ -38,6 +40,7 @@ public class SessionRestController {
             throw new RuntimeException("Session id not found - " + sessionId);
         }
 
+        AppLogger.info("GET /fetch/" + sessionId + " called");
         return theSession;
     }
 
@@ -50,6 +53,7 @@ public class SessionRestController {
 
         Session dbSession = sessionService.save(theSession);
 
+        AppLogger.info("/create session created");
         return dbSession;
     }
 
@@ -72,6 +76,7 @@ public class SessionRestController {
 
         Session dbSession = sessionService.save(patchedSession);
 
+        AppLogger.info("PATCH /patch/" + sessionId);
         return dbSession;
     }
     private Session apply(Map<String, Object> patchPayload, Session tempSession) {
@@ -97,6 +102,7 @@ public class SessionRestController {
 
         sessionService.deleteById(sessionId);
 
+        AppLogger.info("DELETE /delete/" + sessionId);
         return "Deleted Session id - " + sessionId;
     }
 
