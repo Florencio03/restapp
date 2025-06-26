@@ -27,7 +27,6 @@ public class SessionRestController {
 
     @GetMapping("/fetchAll")
     public List<Session> findAll(){
-        //System.out.println("Printing session record");
         AppLogger.info("GET /fetchAll called");
         return sessionService.findAll();
     }
@@ -79,6 +78,7 @@ public class SessionRestController {
         AppLogger.info("PATCH /patch/" + sessionId);
         return dbSession;
     }
+
     private Session apply(Map<String, Object> patchPayload, Session tempSession) {
 
         ObjectNode sessionNode = objectMapper.convertValue(tempSession, ObjectNode.class);
