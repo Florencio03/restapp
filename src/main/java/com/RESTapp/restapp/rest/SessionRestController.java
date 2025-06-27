@@ -2,6 +2,7 @@ package com.RESTapp.restapp.rest;
 
 import com.RESTapp.restapp.entity.Session;
 import com.RESTapp.restapp.service.SessionService;
+import com.RESTapp.restapp.util.AppLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/sessions")
 public class SessionRestController {
 
     private SessionService sessionService;
@@ -24,12 +25,14 @@ public class SessionRestController {
         objectMapper = theObjectMapper;
     }
 
-    @GetMapping("/sessions")
+    @GetMapping("/fetchAll")
     public List<Session> findAll(){
+        //System.out.println("Printing session record");
+        AppLogger.info("GET /fetchAll called");
         return sessionService.findAll();
     }
 
-    @GetMapping("/sessions/{sessionId}")
+    @GetMapping("/fetch/{sessionId}")
     public Session getSession(@PathVariable UUID sessionId){
         Session theSession = sessionService.findById(sessionId);
 
@@ -37,22 +40,24 @@ public class SessionRestController {
             throw new RuntimeException("Session id not found - " + sessionId);
         }
 
+        AppLogger.info("GET /fetch/" + sessionId + " called");
         return theSession;
     }
 
-    @PostMapping("/sessions")
+    @PostMapping("/create")
     public Session addSession(@RequestBody Session theSession){
 
         // also just in case they pass an id in JSON ... set id to null
         // this is to force a save of new item ... instead of update
-        //theSession.setId(null);
+        theSession.setId(null);
 
         Session dbSession = sessionService.save(theSession);
 
+        AppLogger.info("/create session created");
         return dbSession;
     }
 
-    @PatchMapping("/sessions/{sessionId}")
+    @PatchMapping("/patch/{sessionId}")
     public Session patchSession(@PathVariable UUID sessionId, @RequestBody Map<String, Object> patchPayload){
 
         Session tempSession = sessionService.findById(sessionId);
@@ -71,6 +76,7 @@ public class SessionRestController {
 
         Session dbSession = sessionService.save(patchedSession);
 
+        AppLogger.info("PATCH /patch/" + sessionId);
         return dbSession;
     }
     private Session apply(Map<String, Object> patchPayload, Session tempSession) {
@@ -84,7 +90,7 @@ public class SessionRestController {
         return objectMapper.convertValue(sessionNode, Session.class);
     }
 
-    @DeleteMapping("/sessions/{sessionId}")
+    @DeleteMapping("/delete/{sessionId}")
     public String deleteSession(@PathVariable UUID sessionId){
 
         Session tempSession = sessionService.findById(sessionId);
@@ -96,6 +102,7 @@ public class SessionRestController {
 
         sessionService.deleteById(sessionId);
 
+        AppLogger.info("DELETE /delete/" + sessionId);
         return "Deleted Session id - " + sessionId;
     }
 
